@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KONJURO - Café Orgánico Fermentado</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            green: '#8BC34A',      // Verde claro primario
+                            greenLight: '#DCEDC8', // Verde claro suave para fondos
+                            greenDark: '#558B2F',  // Verde oscuro para contrastes
+                            yellow: '#FBC02D',     // Amarillo acento
+                            yellowLight: '#FFF9C4',// Amarillo suave
+                            black: '#121212',      // Negro principal
+                            darkGray: '#1E1E1E',   // Negro secundario
+                            light: '#FAFAFA'       // Blanco humo
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,800;1,400&display=swap" rel="stylesheet">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        .gradient-text {
+            background: linear-gradient(135deg, #8BC34A 0%, #FBC02D 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .hero-pattern {
+            background-color: #121212;
+            background-image: radial-gradient(#8BC34A 0.75px, transparent 0.75px), radial-gradient(#FBC02D 0.75px, #121212 0.75px);
+            background-size: 30px 30px;
+            background-position: 0 0, 15px 15px;
+            background-opacity: 0.1;
+        }
+        .pulse-whatsapp {
+            animation: pulse-border 2s infinite;
+        }
+        @keyframes pulse-border {
+            0% { box-shadow: 0 0 0 0 rgba(139, 195, 74, 0.7); }
+            70% { box-shadow: 0 0 0 15px rgba(139, 195, 74, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(139, 195, 74, 0); }
+        }
+    </style>
+</head>
+<body class="bg-brand-light text-brand-black font-sans antialiased selection:bg-brand-green selection:text-brand-black">
+
+    <!-- Navegación -->
+    <nav class="fixed top-0 left-0 right-0 z-50 bg-brand-black/90 backdrop-blur-md border-b border-brand-green/20 text-white transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <!-- Logo -->
+                <a href="#" class="flex items-center gap-2 group">
+                    <div class="w-10 h-10 rounded-full bg-brand-green flex items-center justify-center text-brand-black font-black text-xl group-hover:bg-brand-yellow transition-colors">
+                        K
+                    </div>
+                    <span class="font-serif text-2xl font-bold tracking-widest text-white group-hover:text-brand-green transition-colors">
+                        KONJURO
+                    </span>
+                </a>
+
+                <!-- Enlaces Desktop -->
+                <div class="hidden md:flex items-center gap-8">
+                    <a href="#inicio" class="hover:text-brand-green transition-colors text-sm font-medium tracking-wide uppercase">Inicio</a>
+                    <a href="#proceso" class="hover:text-brand-green transition-colors text-sm font-medium tracking-wide uppercase">El Secreto</a>
+                    <a href="#beneficios" class="hover:text-brand-green transition-colors text-sm font-medium tracking-wide uppercase">Beneficios</a>
+                    <a href="#productos" class="hover:text-brand-green transition-colors text-sm font-medium tracking-wide uppercase">Comprar</a>
+                    <a href="#contacto" class="hover:text-brand-green transition-colors text-sm font-medium tracking-wide uppercase">Contacto</a>
+                </div>
+
+                <!-- Botón CTA Desktop -->
+                <div class="hidden md:block">
+                    <a href="https://wa.me/51914599198?text=Hola%20KONJURO,%20me%20gustaría%20hacer%20una%20consulta%20sobre%20su%20café%20organico" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 bg-brand-green hover:bg-brand-yellow text-brand-black font-semibold px-5 py-2.5 rounded-full transition-all transform hover:scale-105 shadow-lg shadow-brand-green/20">
+                        <i data-lucide="message-circle" class="w-4 h-4"></i>
+                        <span>Pedir por WhatsApp</span>
+                    </a>
+                </div>
+
+                <!-- Botón Menú Móvil -->
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-btn" class="p-2 rounded-lg text-white hover:text-brand-green focus:outline-none">
+                        <i data-lucide="menu" class="w-7 h-7" id="menu-icon"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Menú Desplegable Móvil -->
+        <div id="mobile-menu" class="hidden md:hidden bg-brand-darkGray border-b border-brand-green/20 px-4 pt-2 pb-6 space-y-3">
+            <a href="#inicio" class="mobile-link block px-3 py-2 rounded-md hover:bg-brand-black hover:text-brand-green text-base font-medium">Inicio</a>
+            <a href="#proceso" class="mobile-link block px-3 py-2 rounded-md hover:bg-brand-black hover:text-brand-green text-base font-medium">El Secreto</a>
+            <a href="#beneficios" class="mobile-link block px-3 py-2 rounded-md hover:bg-brand-black hover:text-brand-green text-base font-medium">Beneficios</a>
+            <a href="#productos" class="mobile-link block px-3 py-2 rounded-md hover:bg-brand-black hover:text-brand-green text-base font-medium">Comprar Café</a>
+            <a href="#contacto" class="mobile-link block px-3 py-2 rounded-md hover:bg-brand-black hover:text-brand-green text-base font-medium">Contacto</a>
+            <a href="https://wa.me/51914599198?text=Hola%20KONJURO,%20me%20gustaría%20información%20sobre%20su%20café" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center gap-2 w-full bg-brand-green text-brand-black font-bold py-3 rounded-xl mt-4">
+                <i data-lucide="message-circle" class="w-5 h-5"></i>
+                <span>Chatear por WhatsApp</span>
+            </a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="inicio" class="relative min-h-screen pt-28 pb-16 flex items-center bg-brand-black text-white overflow-hidden hero-pattern">
+        <!-- Glows Decorativos de Fondo -->
+        <div class="absolute top-1/4 left-10 w-72 h-72 bg-brand-green/20 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute bottom-10 right-10 w-96 h-96 bg-brand-yellow/15 rounded-full blur-3xl pointer-events-none"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                
+                <!-- Texto del Hero -->
+                <div class="space-y-6 text-center lg:text-left">
+                    <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-brand-green/10 border border-brand-green/30 text-brand-green text-xs sm:text-sm font-semibold tracking-wider uppercase">
+                        <i data-lucide="sparkles" class="w-4 h-4 text-brand-yellow"></i>
+                        Fermentación Biotecnológica Natural
+                    </div>
+                    
+                    <h1 class="font-serif text-4xl sm:text-6xl font-bold leading-tight">
+                        El arte del café elevado por <span class="gradient-text italic">Microorganismos</span>
+                    </h1>
+                    
+                    <p class="text-gray-300 text-lg sm:text-xl max-w-2xl font-light leading-relaxed mx-auto lg:mx-0">
+                        En <strong class="text-white font-semibold">KONJURO</strong> transformamos granos seleccionados mediante un proceso de biofermentación controlada, desbloqueando aromas exóticos y un sabor suave e intensamente memorable.
+                    </p>
+
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start pt-4">
+                        <a href="#productos" class="inline-flex items-center justify-center gap-3 bg-brand-green hover:bg-brand-yellow text-brand-black font-bold px-8 py-4 rounded-full text-lg transition-all transform hover:-translate-y-1 shadow-lg shadow-brand-green/25">
+                            <i data-lucide="shopping-bag" class="w-5 h-5"></i>
+                            <span>Ver Presentaciones</span>
+                        </a>
+                        <a href="#proceso" class="inline-flex items-center justify-center gap-2 bg-transparent hover:bg-white/5 text-white border border-white/20 px-8 py-4 rounded-full text-lg font-medium transition-all">
+                            <span>Descubrir el proceso</span>
+                            <i data-lucide="arrow-down" class="w-4 h-4"></i>
+                        </a>
+                    </div>
+
+                    <!-- Métricas Rápidas -->
+                    <div class="pt-8 border-t border-white/10 grid grid-cols-3 gap-4 max-w-lg mx-auto lg:mx-0 text-center">
+                        <div>
+                            <span class="block text-2xl font-bold text-brand-yellow">100%</span>
+                            <span class="text-xs text-gray-400 uppercase tracking-wider">Orgánico</span>
+                        </div>
+                        <div>
+                            <span class="block text-2xl font-bold text-brand-green">S/ 15</span>
+                            <span class="text-xs text-gray-400 uppercase tracking-wider">Desde (250g)</span>
+                        </div>
+                        <div>
+                            <span class="block text-2xl font-bold text-brand-yellow">+Sabor</span>
+                            <span class="text-xs text-gray-400 uppercase tracking-wider">Menos Acidez</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Ilustración / Imagen del Producto -->
+                <div class="relative flex justify-center">
+                    <div class="relative w-full max-w-md">
+                        <!-- Círculo Brillante de Fondo -->
+                        <div class="absolute inset-0 bg-gradient-to-tr from-brand-green to-brand-yellow rounded-3xl rotate-6 opacity-30 blur-lg transition-transform group-hover:rotate-12"></div>
+                        
+                        <!-- Tarjeta de Producto Simulada en Hero -->
+                        <div class="relative bg-brand-darkGray border border-brand-green/30 rounded-3xl p-8 shadow-2xl overflow-hidden text-center space-y-6">
+                            <div class="absolute top-4 right-4 bg-brand-yellow text-brand-black text-xs font-black px-3 py-1 rounded-full uppercase">
+                                Molido Fresco
+                            </div>
+                            
+                            <!-- Bag Mockup SVG -->
+                            <div class="w-48 h-60 mx-auto bg-gradient-to-b from-stone-800 to-black rounded-2xl border border-brand-green/40 shadow-inner flex flex-col items-center justify-center p-4 relative group">
+                                <div class="w-16 h-16 rounded-full bg-brand-green/20 border border-brand-green flex items-center justify-center mb-2">
+                                    <i data-lucide="coffee" class="w-8 h-8 text-brand-green"></i>
+                                </div>
+                                <span class="font-serif font-black tracking-widest text-xl text-white">KONJURO</span>
+                                <span class="text-[10px] text-brand-yellow tracking-widest uppercase mt-1">Café Orgánico Fermentado</span>
+                                <div class="mt-4 px-3 py-1 bg-brand-green/10 border border-brand-green/30 rounded text-xs text-brand-green font-mono">
+                                    CAFÉ MOLIDO
+                                </div>
+                            </div>
+
+                            <div>
+                                <h3 class="font-serif text-2xl font-bold text-white">Edición Especial Fermentada</h3>
+                                <p class="text-sm text-gray-400 mt-1">Notas frutales, cuerpo sedoso y fragancia envolvente.</p>
+                            </div>
+
+                            <div class="bg-black/50 p-4 rounded-xl flex items-center justify-between border border-white/5">
+                                <div class="text-left">
+                                    <span class="text-xs text-gray-400 block">Presentación 500g</span>
+                                    <span class="text-2xl font-bold text-brand-green">S/ 30.00</span>
+                                </div>
+                                <a href="https://wa.me/51914599198?text=Hola%20KONJURO,%20quiero%20pedir%20el%20café%20molido%20de%201/2%20kg%20(S/%2030)" target="_blank" rel="noopener noreferrer" class="bg-brand-green hover:bg-brand-yellow text-brand-black p-3 rounded-xl transition-colors">
+                                    <i data-lucide="arrow-right" class="w-5 h-5"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección Sobre el Proceso (Fermentación) -->
+    <section id="proceso" class="py-24 bg-white relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="text-brand-greenDark text-sm font-bold tracking-widest uppercase bg-brand-greenLight/50 px-4 py-1.5 rounded-full">
+                    Biotecnología & Tradición
+                </span>
+                <h2 class="font-serif text-3xl sm:text-5xl font-bold text-brand-black mt-4">
+                    ¿Por qué el café fermentado con microorganismos?
+                </h2>
+                <p class="text-gray-600 mt-4 text-lg">
+                    No es solo café, es una ciencia de sabor. Utilizamos cultivos seleccionados de microorganismos benéficos para transformar los azúcares naturales del grano durante su fermentación.
+                </p>
+            </div>
+
+            <!-- Pasos del Proceso -->
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Paso 1 -->
+                <div class="bg-brand-light p-8 rounded-3xl border border-gray-100 hover:border-brand-green transition-all hover:shadow-xl group">
+                    <div class="w-14 h-14 bg-brand-greenLight rounded-2xl flex items-center justify-center text-brand-greenDark mb-6 group-hover:bg-brand-green group-hover:text-black transition-colors">
+                        <i data-lucide="leaf" class="w-7 h-7"></i>
+                    </div>
+                    <span class="text-xs font-bold uppercase tracking-wider text-brand-greenDark">Paso 01</span>
+                    <h3 class="font-serif text-xl font-bold text-brand-black mt-2 mb-3">Granos Orgánicos Seleccionados</h3>
+                    <p class="text-gray-600 text-sm leading-relaxed">
+                        Cosechamos únicamente cerezas de café en su punto óptimo de maduración, cultivadas bajo prácticas 100% orgánicas y sostenibles.
+                    </p>
+                </div>
+
+                <!-- Paso 2 -->
+                <div class="bg-brand-light p-8 rounded-3xl border border-gray-100 hover:border-brand-green transition-all hover:shadow-xl group relative">
+                    <div class="w-14 h-14 bg-brand-yellowLight rounded-2xl flex items-center justify-center text-brand-black mb-6 group-hover:bg-brand-yellow transition-colors">
+                        <i data-lucide="flask-conical" class="w-7 h-7"></i>
+                    </div>
+                    <span class="text-xs font-bold uppercase tracking-wider text-brand-black">Paso 02</span>
+                    <h3 class="font-serif text-xl font-bold text-brand-black mt-2 mb-3">Inoculación con Microorganismos</h3>
+                    <p class="text-gray-600 text-sm leading-relaxed">
+                        Añadimos cepas específicas de microorganismos que descomponen suavemente la pulpa, potenciando perfil aromático, acidez equilibrada y dulzor nativo.
+                    </p>
+                </div>
+
+                <!-- Paso 3 -->
+                <div class="bg-brand-light p-8 rounded-3xl border border-gray-100 hover:border-brand-green transition-all hover:shadow-xl group">
+                    <div class="w-14 h-14 bg-brand-greenLight rounded-2xl flex items-center justify-center text-brand-greenDark mb-6 group-hover:bg-brand-green group-hover:text-black transition-colors">
+                        <i data-lucide="flame" class="w-7 h-7"></i>
+                    </div>
+                    <span class="text-xs font-bold uppercase tracking-wider text-brand-greenDark">Paso 03</span>
+                    <h3 class="font-serif text-xl font-bold text-brand-black mt-2 mb-3">Tueste & Molido de Precisión</h3>
+                    <p class="text-gray-600 text-sm leading-relaxed">
+                        Tostamos artesanalmente para sellar la complejidad de los sabores y molemos al punto ideal para que disfrutes de una extracción perfecta.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección de Beneficios -->
+    <section id="beneficios" class="py-20 bg-brand-black text-white relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <div>
+                    <span class="text-brand-yellow text-sm font-bold tracking-widest uppercase">Ventajas Exclusivas</span>
+                    <h2 class="font-serif text-3xl sm:text-4xl font-bold mt-2 mb-6">
+                        Una experiencia sensorial diferente en cada taza
+                    </h2>
+                    <p class="text-gray-400 mb-8 leading-relaxed">
+                        La fermentación microbiana no solo crea un sabor superior, sino que además mejora las propiedades digestivas y la frescura del café molido.
+                    </p>
+
+                    <div class="space-y-6">
+                        <div class="flex gap-4">
+                            <div class="w-12 h-12 rounded-xl bg-brand-green/20 text-brand-green flex items-center justify-center shrink-0">
+                                <i data-lucide="smile" class="w-6 h-6"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-lg font-bold text-white">Amigable con el Estómago</h4>
+                                <p class="text-gray-400 text-sm mt-1">La fermentación reduce los compuestos pesados y la acidez agresiva, facilitando la digestión.</p>
+                            </div>
+                        </div>
+
+                        <div class="flex gap-4">
+                            <div class="w-12 h-12 rounded-xl bg-brand-yellow/20 text-brand-yellow flex items-center justify-center shrink-0">
+                                <i data-lucide="award" class="w-6 h-6"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-lg font-bold text-white">Notas Aromáticas Complejas</h4>
+                                <p class="text-gray-400 text-sm mt-1">Descubre matices florales, afrutados y acaramelados imposibles de lograr con métodos convencionales.</p>
+                            </div>
+                        </div>
+
+                        <div class="flex gap-4">
+                            <div class="w-12 h-12 rounded-xl bg-brand-green/20 text-brand-green flex items-center justify-center shrink-0">
+                                <i data-lucide="shield-check" class="w-6 h-6"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-lg font-bold text-white">100% Libre de Químicos</h4>
+                                <p class="text-gray-400 text-sm mt-1">Proceso totalmente natural sin aditivos sintéticos ni aromatizantes artificiales.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Imagen decorativa o Banner interactivo -->
+                <div class="bg-gradient-to-br from-brand-darkGray to-black p-8 rounded-3xl border border-brand-green/30 text-center relative overflow-hidden">
+                    <div class="absolute -right-10 -bottom-10 w-40 h-40 bg-brand-green/20 rounded-full blur-2xl"></div>
+                    <i data-lucide="quote" class="w-12 h-12 text-brand-yellow/30 mx-auto mb-4"></i>
+                    <blockquote class="font-serif text-2xl italic text-gray-200">
+                        "El café fermentado KONJURO cambió mi rutina matutina. Es suave, tiene un aroma envolvente y nunca me cae pesado."
+                    </blockquote>
+                    <div class="mt-6">
+                        <span class="block font-bold text-brand-green">Cliente Satisfecho</span>
+                        <span class="text-xs text-gray-400">Café Lover en Perú</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Catálogo de Productos -->
+    <section id="productos" class="py-24 bg-brand-greenLight/30 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="text-brand-greenDark text-sm font-bold tracking-widest uppercase bg-white px-4 py-1.5 rounded-full shadow-sm">
+                    Nuestras Presentaciones
+                </span>
+                <h2 class="font-serif text-3xl sm:text-5xl font-bold text-brand-black mt-4">
+                    Café Molido KONJURO
+                </h2>
+                <p class="text-gray-600 mt-4 text-lg">
+                    Elige el tamaño perfecto para ti. Todo nuestro café se muele y empaqueta justo antes de enviar para garantizar máxima frescura.
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                
+                <!-- Tarjeta 1: 250g (1/4 Kg) -->
+                <div class="bg-white rounded-3xl p-8 border-2 border-transparent hover:border-brand-green transition-all shadow-xl hover:shadow-2xl flex flex-col justify-between relative group">
+                    <div>
+                        <div class="flex justify-between items-start mb-6">
+                            <div>
+                                <span class="bg-brand-greenLight text-brand-greenDark font-bold text-xs px-3 py-1 rounded-full uppercase tracking-wider">
+                                    Presentación 1/4 Kg
+                                </span>
+                                <h3 class="font-serif text-2xl font-bold text-brand-black mt-2">Café Molido (250g)</h3>
+                            </div>
+                            <div class="text-right">
+                                <span class="text-3xl font-black text-brand-black">S/ 15</span>
+                                <span class="text-xs text-gray-500 block">.00 Soles</span>
+                            </div>
+                        </div>
+
+                        <div class="my-6 py-6 border-y border-gray-100 space-y-3 text-sm text-gray-600">
+                            <div class="flex items-center gap-3">
+                                <i data-lucide="check" class="w-5 h-5 text-brand-greenDark"></i>
+                                <span>Ideal para probar o regalar</span>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <i data-lucide="check" class="w-5 h-5 text-brand-greenDark"></i>
+                                <span>Molido medio (multimétodos)</span>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <i data-lucide="check" class="w-5 h-5 text-brand-greenDark"></i>
+                                <span>Rinde aprox. 20 - 25 tazas</span>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <i data-lucide="check" class="w-5 h-5 text-brand-greenDark"></i>
+                                <span>Empaque trilaminado con válvula de desgasificación</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <a href="https://wa.me/51914599198?text=Hola%20KONJURO,%20me%20gustaría%20pedir%20el%20café%20molido%20de%201/4%20kg%20(250g)%20por%20S/%2015" 
+                       target="_blank" 
+                       rel="noopener noreferrer" 
+                       class="w-full bg-brand-black hover:bg-brand-green hover:text-brand-black text-white font-bold py-4 rounded-2xl flex items-center justify-center gap-3 transition-colors shadow-lg">
+                        <i data-lucide="message-circle" class="w-5 h-5"></i>
+                        <span>Pedir 1/4 Kg por WhatsApp</span>
+                    </a>
+                </div>
+
+                <!-- Tarjeta 2: 500g (1/2 Kg) - Destacado -->
+                <div class="bg-brand-black text-white rounded-3xl p-8 border-2 border-brand-green shadow-2xl flex flex-col justify-between relative transform md:-translate-y-2">
+                    <div class="absolute -top-4 right-8 bg-brand-yellow text-brand-black text-xs font-black px-4 py-1.5 rounded-full uppercase tracking-wider shadow-md">
+                        Más Popular
+                    </div>
+
+                    <div>
+                        <div class="flex justify-between items-start mb-6">
+                            <div>
+                                <span class="bg-brand-green/20 text-brand-green font-bold text-xs px-3 py-1 rounded-full uppercase tracking-wider">
+                                    Presentación 1/2 Kg
+                                </span>
+                                <h3 class="font-serif text-2xl font-bold text-white mt-2">Café Molido (500g)</h3>
+                            </div>
+                            <div class="text-right">
+                                <span class="text-3xl font-black text-brand-green">S/ 30</span>
+                                <span class="text-xs text-gray-400 block">.00 Soles</span>
+                            </div>
+                        </div>
+
+                        <div class="my-6 py-6 border-y border-white/10 space-y-3 text-sm text-gray-300">
+                            <div class="flex items-center gap-3">
+                                <i data-lucide="check" class="w-5 h-5 text-brand-yellow"></i>
+                                <span>Mejor relación volumen / precio</span>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <i data-lucide="check" class="w-5 h-5 text-brand-yellow"></i>
+                                <span>Molido fresco garantizado</span>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <i data-lucide="check" class="w-5 h-5 text-brand-yellow"></i>
+                                <span>Rinde aprox. 45 - 50 tazas</span>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <i data-lucide="check" class="w-5 h-5 text-brand-yellow"></i>
+                                <span>Mantiene su fragancia por más tiempo</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <a href="https://wa.me/51914599198?text=Hola%20KONJURO,%20me%20gustaría%20pedir%20el%20café%20molido%20de%201/2%20kg%20(500g)%20por%20S/%2030" 
+                       target="_blank" 
+                       rel="noopener noreferrer" 
+                       class="w-full bg-brand-green hover:bg-brand-yellow text-brand-black font-bold py-4 rounded-2xl flex items-center justify-center gap-3 transition-colors shadow-lg shadow-brand-green/20">
+                        <i data-lucide="message-circle" class="w-5 h-5"></i>
+                        <span>Pedir 1/2 Kg por WhatsApp</span>
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección de Preguntas Frecuentes / Info -->
+    <section class="py-16 bg-white">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="font-serif text-2xl sm:text-3xl font-bold text-center text-brand-black mb-10">Preguntas Frecuentes</h2>
+            
+            <div class="space-y-4">
+                <details class="group bg-brand-light p-6 rounded-2xl border border-gray-100">
+                    <summary class="font-bold text-lg text-brand-black cursor-pointer flex justify-between items-center list-none">
+                        <span>¿El café fermentado contiene alcohol?</span>
+                        <span class="transition group-open:rotate-180">
+                            <i data-lucide="chevron-down" class="w-5 h-5 text-brand-greenDark"></i>
+                        </span>
+                    </summary>
+                    <p class="text-gray-600 mt-3 text-sm leading-relaxed">
+                        No. La fermentación con microorganismos se realiza en la etapa del grano verde húmedo y luego pasa por el proceso de secado y tueste (a más de 200°C), lo que elimina cualquier traza volátil. Solo permanece la riqueza cromática de sabores y aromas.
+                    </p>
+                </details>
+
+                <details class="group bg-brand-light p-6 rounded-2xl border border-gray-100">
+                    <summary class="font-bold text-lg text-brand-black cursor-pointer flex justify-between items-center list-none">
+                        <span>¿Cómo realizan los envíos?</span>
+                        <span class="transition group-open:rotate-180">
+                            <i data-lucide="chevron-down" class="w-5 h-5 text-brand-greenDark"></i>
+                        </span>
+                    </summary>
+                    <p class="text-gray-600 mt-3 text-sm leading-relaxed">
+                        Coordinamos directamente por WhatsApp la entrega a tu domicilio o agencia más cercana. Atendemos pedidos locales y envíos a todo el Perú.
+                    </p>
+                </details>
+
+                <details class="group bg-brand-light p-6 rounded-2xl border border-gray-100">
+                    <summary class="font-bold text-lg text-brand-black cursor-pointer flex justify-between items-center list-none">
+                        <span>¿Qué método de preparación recomiendan?</span>
+                        <span class="transition group-open:rotate-180">
+                            <i data-lucide="chevron-down" class="w-5 h-5 text-brand-greenDark"></i>
+                        </span>
+                    </summary>
+                    <p class="text-gray-600 mt-3 text-sm leading-relaxed">
+                        Nuestro café molido funciona fantásticamente en cafetera de gota/filtro, prensa francesa, V60 o cafetera italiana (Moka).
+                    </p>
+                </details>
+            </div>
+        </div>
+    </section>
+
+    <!-- Formulario de Contacto / Consulta Directa -->
+    <section id="contacto" class="py-20 bg-brand-black text-white relative">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="bg-brand-darkGray border border-brand-green/30 rounded-3xl p-8 sm:p-12 shadow-2xl">
+                <div class="text-center mb-8">
+                    <span class="text-brand-yellow text-xs font-bold tracking-widest uppercase">Atención Personalizada</span>
+                    <h2 class="font-serif text-3xl font-bold mt-2">¿Tienes alguna duda o pedido especial?</h2>
+                    <p class="text-gray-400 text-sm mt-2">Completa los datos y te redirigiremos instantáneamente con un mensaje personalizado a nuestro WhatsApp.</p>
+                </div>
+
+                <form id="whatsapp-form" class="space-y-4">
+                    <div class="grid sm:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-medium text-gray-300 mb-1">Tu Nombre</label>
+                            <input type="text" id="form-name" required placeholder="Ej. Maria Lopez" class="w-full bg-black/60 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-brand-green transition-colors">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-medium text-gray-300 mb-1">Presentación de interés</label>
+                            <select id="form-product" class="w-full bg-black/60 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-brand-green transition-colors">
+                                <option value="1/2 Kg (S/ 30.00)">1/2 Kg (500g) - S/ 30.00</option>
+                                <option value="1/4 Kg (S/ 15.00)">1/4 Kg (250g) - S/ 15.00</option>
+                                <option value="Consulta General">Solo consulta general</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-medium text-gray-300 mb-1">Mensaje o Consulta</label>
+                        <textarea id="form-message" rows="3" placeholder="Ej. Quisiera saber el costo de envío a mi distrito..." class="w-full bg-black/60 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-brand-green transition-colors"></textarea>
+                    </div>
+
+                    <button type="submit" class="w-full bg-brand-green hover:bg-brand-yellow text-brand-black font-bold py-4 rounded-xl flex items-center justify-center gap-2 transition-colors shadow-lg">
+                        <i data-lucide="send" class="w-5 h-5"></i>
+                        <span>Enviar Consulta por WhatsApp</span>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-black text-gray-400 border-t border-white/10 py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-6">
+                
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-full bg-brand-green text-brand-black flex items-center justify-center font-black">
+                        K
+                    </div>
+                    <div>
+                        <span class="font-serif text-xl font-bold text-white tracking-widest block">KONJURO</span>
+                        <span class="text-xs text-gray-500">Café Orgánico Fermentado</span>
+                    </div>
+                </div>
+
+                <div class="flex flex-wrap justify-center gap-6 text-sm">
+                    <a href="#inicio" class="hover:text-brand-green transition-colors">Inicio</a>
+                    <a href="#proceso" class="hover:text-brand-green transition-colors">Proceso</a>
+                    <a href="#productos" class="hover:text-brand-green transition-colors">Precios</a>
+                    <a href="#contacto" class="hover:text-brand-green transition-colors">Contacto</a>
+                </div>
+
+                <div class="text-center md:text-right text-xs text-gray-500">
+                    <p>© <span id="year"></span> KONJURO. Todos los derechos reservados.</p>
+                    <p class="mt-1">Contacto directo: <a href="tel:+51914599198" class="text-brand-green font-medium">+51 914 599 198</a></p>
+                </div>
+
+            </div>
+        </div>
+    </footer>
+
+    <!-- Botón Flotante de WhatsApp -->
+    <a href="https://wa.me/51914599198?text=Hola%20KONJURO,%20me%20gustaría%20información%20sobre%20su%20café%20molido%20fermentado" 
+       target="_blank" 
+       rel="noopener noreferrer" 
+       class="fixed bottom-6 right-6 z-50 bg-[#25D366] text-white p-4 rounded-full shadow-2xl hover:scale-110 transition-transform pulse-whatsapp flex items-center justify-center group"
+       title="Contactar por WhatsApp">
+        <i data-lucide="message-circle" class="w-8 h-8 fill-current"></i>
+        <span class="max-w-0 overflow-hidden group-hover:max-w-xs transition-all duration-300 ease-in-out whitespace-nowrap text-sm font-bold pl-0 group-hover:pl-2">
+            ¡Escríbenos!
+        </span>
+    </a>
+
+    <!-- Scripts de Interactividad -->
+    <script>
+        // Inicializar Iconos de Lucide
+        lucide.createIcons();
+
+        // Actualizar Año en Footer
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        // Menú Móvil Toggle
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Cerrar menú móvil al hacer clic en un enlace
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+
+        // Manejador del Formulario de Contacto
+        document.getElementById('whatsapp-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('form-name').value;
+            const product = document.getElementById('form-product').value;
+            const message = document.getElementById('form-message').value;
+            
+            const phoneNumber = '51914599198';
+            
+            let fullText = `Hola KONJURO, mi nombre es ${name}.\n`;
+            fullText += `Estoy interesado en: ${product}.\n`;
+            if (message.trim() !== '') {
+                fullText += `Consulta: ${message}`;
+            }
+
+            const encodedMessage = encodeURIComponent(fullText);
+            window.open(`https://wa.me/${phoneNumber}?text=${encodedMessage}`, '_blank');
+        });
+    </script>
+</body>
+</html>
